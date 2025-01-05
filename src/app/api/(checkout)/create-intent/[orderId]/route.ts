@@ -1,13 +1,15 @@
 import { prisma } from "@/utils/connect";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe"; // Use ESModule import
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2024-12-18.acacia", // Add the Stripe API version you are using
 });
 
-export async function POST({ params }: { params: { orderId: string } }) {
-  const { orderId } = params;
+type Params = Promise<{ orderId: string }>;
+
+export async function POST(req: NextRequest, { params }: { params: Params }) {
+  const { orderId } = await params;
 
   const order = await prisma.order.findUnique({
     where: {

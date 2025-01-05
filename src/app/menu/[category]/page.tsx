@@ -16,12 +16,10 @@ const getData = async (category: string) => {
   return res.json();
 };
 
-type Props = {
-  params: { category: string };
-};
+type Props = Promise<{ category: string }>;
 
-const CategoryPage = async ({ params }: Props) => {
-  const {category}=await params;
+const CategoryPage = async ({ params }: { params: Props }) => {
+  const { category } = await params;
   const products: ProductType[] = await getData(category);
   return (
     <div className="flex flex-wrap text-red-500">

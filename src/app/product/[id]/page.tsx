@@ -14,7 +14,9 @@ const getData = async (id: string) => {
   return res.json();
 };
 
-const Product = async ({ params }: { params: { id: string } }) => {
+type Params = Promise<{ id: string }>;
+
+const Product = async ({ params }: { params: Params }) => {
   const { id } = await params;
   const singleProduct: ProductType = await getData(id);
 

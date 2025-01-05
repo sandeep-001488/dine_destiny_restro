@@ -2,11 +2,11 @@ import { prisma } from "@/utils/connect";
 import { NextRequest, NextResponse } from "next/server";
 
 // CHANGE THE STATUS OF AN ORDER
-export const PUT = async (
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) => {
-  const { id } = params;
+
+type Params = Promise<{ id: string }>;
+
+export const PUT = async (req: NextRequest, { params }: { params: Params }) => {
+  const { id } = await params;
 
   try {
     const body = await req.json();

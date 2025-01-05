@@ -3,18 +3,14 @@ import React, { useEffect, useState } from "react";
 import { loadStripe, StripeElementsOptions } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "@/app/components/CheckoutForm";
+import { useParams } from "next/navigation";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 );
 
-interface PayPageProps {
-  params: { id: string };
-}
-
-const PayPage = ({ params }: PayPageProps) => {
-  const { id } = params;
-
+const PayPage = () => {
+  const { id } = useParams();
   const [clientSecret, setClientSecret] = useState("");
 
   useEffect(() => {
@@ -32,7 +28,9 @@ const PayPage = ({ params }: PayPageProps) => {
         console.error("Failed to create payment intent:", error);
       }
     };
-    makeRequest();
+    if (id) {
+      makeRequest();
+    }
   }, [id]);
 
   const options: StripeElementsOptions = {
@@ -42,10 +40,12 @@ const PayPage = ({ params }: PayPageProps) => {
 
   return (
     <div>
-      {clientSecret && (
+      {clientSecret ? (
         <Elements options={options} stripe={stripePromise}>
           <CheckoutForm />
         </Elements>
+      ) : (
+        <p>Loading payment details...</p>
       )}
     </div>
   );
