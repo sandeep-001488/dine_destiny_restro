@@ -11,9 +11,12 @@ const SuccessPageContent = () => {
   useEffect(() => {
     const makeRequest = async () => {
       try {
-        await fetch(`http://localhost:3000/api/confirm/${payment_intent}`, {
-          method: "PUT",
-        });
+        await fetch(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/confirm/${payment_intent}`,
+          {
+            method: "PUT",
+          }
+        );
         setTimeout(() => {
           router.push("/orders");
         }, 5000);

@@ -3,9 +3,12 @@ import Link from "next/link";
 import React from "react";
 
 const getData = async () => {
-  const res = await fetch("http://localhost:3000/api/categories", {
-    cache: "no-store",
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/categories`,
+    {
+      cache: "no-store",
+    }
+  );
   if (!res.ok) {
     throw new Error("failed to get data for category");
   }

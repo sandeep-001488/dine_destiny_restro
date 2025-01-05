@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -16,9 +16,12 @@ const DeleteButton = ({ id }: { id: string }) => {
     return;
   }
   const handleDelete = async () => {
-    const res = await fetch(`http://localhost:3000/api/products/${id}`, {
-      method: "DELETE",
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/products/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
     if (res.status === 200) {
       router.push("/menu");
       toast("The product has been deleted!");

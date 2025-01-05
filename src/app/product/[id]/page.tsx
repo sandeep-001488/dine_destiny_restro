@@ -5,9 +5,12 @@ import { ProductType } from "@/types/types";
 import DeleteButton from "@/app/components/DeleteButton";
 
 const getData = async (id: string) => {
-  const res = await fetch(`http://localhost:3000/api/products/${id}`, {
-    cache: "no-store",
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/products/${id}`,
+    {
+      cache: "no-store",
+    }
+  );
   if (!res.ok) {
     throw new Error("failed to get data for category");
   }

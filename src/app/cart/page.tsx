@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useCartStore } from "@/utils/store";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -6,48 +6,48 @@ import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
 const Cart = () => {
-  
-    useEffect(()=>{
-      useCartStore.persist.rehydrate()
-    },[])
+  useEffect(() => {
+    useCartStore.persist.rehydrate();
+  }, []);
 
   const { products, totalItems, totalPrice, removeFromCart } = useCartStore();
 
-  const router=useRouter()
-  const {data:session}=useSession()
+  const router = useRouter();
+  const { data: session } = useSession();
 
-  useEffect(()=>{
-    if(totalItems==0){
-      router.push("/menu")
+  useEffect(() => {
+    if (totalItems == 0) {
+      router.push("/menu");
     }
-  },[totalItems,router])
+  }, [totalItems, router]);
 
-   const handleCheckout=async()=>{
-        if(!session){
-          router.push('/')
-        }else{
-          try {
-            const res=await fetch("http://localhost:3000/api/orders",{
-              method:"POST",
-              headers:{"Content-Type":"application/json"},
-              body:JSON.stringify({
-                price:totalPrice,
-                products,
-                status:"Not paid",
-                userEmail:session.user.email,
-              })
-            })
-
-            const data=await res.json()
-
-            router.push(`/pay/${data.id}`)
-            
-          } catch (error) {
-            console.log(error);            
-            
+  const handleCheckout = async () => {
+    if (!session) {
+      router.push("/");
+    } else {
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/orders`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              price: totalPrice,
+              products,
+              status: "Not paid",
+              userEmail: session.user.email,
+            }),
           }
-        }
-   }
+        );
+
+        const data = await res.json();
+
+        router.push(`/pay/${data.id}`);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
   return (
     <div>
@@ -63,11 +63,18 @@ const Cart = () => {
                 <Image src={item.img} alt="" width={100} height={100} />
               )}
               <div className="">
-                <h1 className="uppercase text-xl font-bold">{item.title} x {item.quantity}</h1>
+                <h1 className="uppercase text-xl font-bold">
+                  {item.title} x {item.quantity}
+                </h1>
                 <span>{item.optionTitle}</span>
               </div>
               <h2 className="font-bold">${item.price}</h2>
-              <span className="cursor-pointer"  onClick={()=>removeFromCart(item)}>X</span>
+              <span
+                className="cursor-pointer"
+                onClick={() => removeFromCart(item)}
+              >
+                X
+              </span>
             </div>
           ))}
         </div>
@@ -89,7 +96,10 @@ const Cart = () => {
             <span>TOTAL(INCL. VAT)</span>
             <span className="text-green-500">${totalPrice}</span>
           </div>
-          <button className="bg-red-500 text-white rounded-md w-1/2 self-end" onClick={handleCheckout}>
+          <button
+            className="bg-red-500 text-white rounded-md w-1/2 self-end"
+            onClick={handleCheckout}
+          >
             CHECKOUT
           </button>
         </div>

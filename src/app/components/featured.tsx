@@ -3,21 +3,21 @@ import Image from "next/image";
 import React from "react";
 // import { featuredProducts } from "../../../data";
 
-
 const getData = async () => {
-  const res = await fetch("http://localhost:3000/api/products", {
-    cache: "no-store",
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/products`,
+    {
+      cache: "no-store",
+    }
+  );
   if (!res.ok) {
     throw new Error("failed to get data for category");
   }
   return res.json();
 };
 
-
 const Featured = async () => {
-  
- const featuredProducts:ProductType[]=await getData()
+  const featuredProducts: ProductType[] = await getData();
   return (
     <div className="w-screen overflow-x-scroll text-red-500">
       <div className="w-max flex">

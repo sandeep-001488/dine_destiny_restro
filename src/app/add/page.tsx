@@ -3,7 +3,7 @@
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, {  useState } from "react";
+import React, { useState } from "react";
 
 type Inputs = {
   title: string;
@@ -36,14 +36,13 @@ const AddPage = () => {
 
   const router = useRouter();
 
-   if (status === "loading") {
-     return <p>Loading...</p>;
-   }
+  if (status === "loading") {
+    return <p>Loading...</p>;
+  }
 
-   if (status === "unauthenticated" || !session?.user.isAdmin) {
-     router.push("/");
-   }
-
+  if (status === "unauthenticated" || !session?.user.isAdmin) {
+    router.push("/");
+  }
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -61,7 +60,6 @@ const AddPage = () => {
     }));
   };
 
-
   const handleChangeImg = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target;
     if (target.files && target.files.length > 0) {
@@ -69,24 +67,26 @@ const AddPage = () => {
     }
   };
 
-
   const upload = async () => {
     if (!file) {
       throw new Error("Please select a file to upload");
     }
 
     const reader = new FileReader();
-    reader.readAsDataURL(file); 
+    reader.readAsDataURL(file);
     return new Promise<string>((resolve, reject) => {
       reader.onloadend = async () => {
         try {
-          const res = await fetch("http://localhost:3000/api/upload", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ imageData: reader.result }),
-          });
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/upload`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ imageData: reader.result }),
+            }
+          );
 
           const resData = await res.json();
           if (res.ok) {
@@ -103,39 +103,41 @@ const AddPage = () => {
     });
   };
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
+    try {
+      const imageUrl = await upload();
+      const parsedPrice = parseFloat(inputs.price.toString()); // Ensure price is a number
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/products`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            img: imageUrl,
+            title: inputs.title,
+            desc: inputs.desc,
+            price: parsedPrice, // Send the price as a number
+            catSlug: inputs.catSlug,
+            options, // Include options as they are
+          }),
+        }
+      );
 
-  try {
-    const imageUrl = await upload();
-    const parsedPrice = parseFloat(inputs.price.toString()); // Ensure price is a number
-    const res = await fetch("http://localhost:3000/api/products", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        img: imageUrl,
-        title: inputs.title,
-        desc: inputs.desc,
-        price: parsedPrice, // Send the price as a number
-        catSlug: inputs.catSlug,
-        options, // Include options as they are
-      }),
-    });
+      if (!res.ok) {
+        throw new Error("Failed to create product");
+      }
 
-    if (!res.ok) {
-      throw new Error("Failed to create product");
+      const data = await res.json();
+      router.push(`/product/${data.id}`);
+    } catch (err) {
+      console.error("Product creation failed:", err);
+      // Handle error (e.g., show a toast or alert)
     }
-
-    const data = await res.json();
-    router.push(`/product/${data.id}`);
-  } catch (err) {
-    console.error("Product creation failed:", err);
-    // Handle error (e.g., show a toast or alert)
-  }
-};
+  };
 
   return (
     <div className="p-4 lg:px-20 xl:px-40 h-[calc(100vh-6rem)] md:h-[calc(100vh-9rem)] flex items-center justify-center text-red-500">
