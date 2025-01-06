@@ -19,7 +19,7 @@ const getData = async () => {
 const Featured = async () => {
   const featuredProducts: ProductType[] = await getData();
   const router = useRouter();
-  
+
   const handleClick = (id: string) => {
     router.push(`/product/${id}`);
   };
@@ -29,7 +29,7 @@ const Featured = async () => {
         {featuredProducts.map((item) => (
           <div
             key={item.id}
-            className="w-screen h-[60vh] flex flex-col items-center justify-around p-4 hover:bg-fuchsia-50 transition-all duration-300 md:w-[50vw] xl:w-[33vw] xl:h-[90vh]"
+            className="w-screen h-[60vh] flex flex-col items-center justify-around p-4 hover:bg-fuchsia-50 transition-all duration-300 md:w-[50vw] xl:w-[33vw] xl:h-[90vh] cursor-pointer"
             onClick={() => handleClick(item.id)}
           >
             {item.img && (
