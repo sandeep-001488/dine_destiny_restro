@@ -5,18 +5,18 @@ import React, { useEffect, useState } from "react";
 const data = [
   {
     id: 1,
-    title: "always fresh & always crispy & always hot",
-    image: "/slide1.png",
+    title: "Where Every Bite Crackles with Flavor",
+    image: "/burgers.jpg",
   },
   {
     id: 2,
-    title: "we deliver your order wherever you are in NY",
-    image: "/slide2.png",
+    title: "Fresh, Flawless, and Crisp on the Finish",
+    image: "/pastas.jpg",
   },
   {
     id: 3,
-    title: "the best pizza to share with your family",
-    image: "/slide3.jpg",
+    title: "Bold Flavors, Crispy Bites, Pure Happiness",
+    image: "/pizzas.jpg",
   },
 ];
 
