@@ -45,7 +45,7 @@ const PayPage = () => {
           <CheckoutForm />
         </Elements>
       ) : (
-        <p>Loading payment details...</p>
+        <p>Loading payment details..</p>
       )}
     </div>
   );
