@@ -199,6 +199,145 @@ export const featuredProducts: Products = [
       },
     ],
   },
+  {
+    id: 10,
+    title: "Classic Margherita",
+    desc: "A timeless delight of tangy tomato sauce, fresh basil leaves, and creamy mozzarella on a perfectly crispy crust, drizzled with extra virgin olive oil.",
+    img: "/temporary/p2.png",
+    price: 19.9,
+    options: [
+      {
+        title: "Small",
+        additionalPrice: 0,
+      },
+      {
+        title: "Medium",
+        additionalPrice: 3,
+      },
+      {
+        title: "Large",
+        additionalPrice: 5,
+      },
+    ],
+  },
+  {
+    id: 11,
+    title: "BBQ Chicken",
+    desc: "Succulent chicken, tangy BBQ sauce, red onions, and a blend of cheeses create a smoky, savory pizza with a satisfying crispy crust.",
+    img: "/temporary/p3.png",
+    price: 22.9,
+    options: [
+      {
+        title: "Small",
+        additionalPrice: 0,
+      },
+      {
+        title: "Medium",
+        additionalPrice: 4,
+      },
+      {
+        title: "Large",
+        additionalPrice: 6,
+      },
+    ],
+  },
+  {
+    id: 12,
+    title: "Crispy Chicken Deluxe",
+    desc: "A golden, crispy chicken fillet topped with fresh lettuce, ripe tomatoes, pickles, and a dollop of zesty mayo, all nestled in a toasted brioche bun.",
+    img: "/temporary/b1.png",
+    price: 15.5,
+    options: [
+      {
+        title: "Regular",
+        additionalPrice: 0,
+      },
+      {
+        title: "Double Patty",
+        additionalPrice: 3,
+      },
+    ],
+  },
+  {
+    id: 13,
+    title: "Smoky Bacon Cheeseburger",
+    desc: "Juicy beef patty, crispy smoked bacon, melted cheddar cheese, and a special smoky sauce for a burger that bursts with flavor.",
+    img: "/temporary/b2.png",
+    price: 17.9,
+    options: [
+      {
+        title: "Regular",
+        additionalPrice: 0,
+      },
+      {
+        title: "Double Patty",
+        additionalPrice: 4,
+      },
+    ],
+  },
+  {
+    id: 14,
+    title: "Pesto Primavera",
+    desc: "A delightful mix of fresh seasonal vegetables tossed in a vibrant basil pesto sauce, served with al dente penne pasta and topped with grated parmesan.",
+    img: "/temporary/pa3.png",
+    price: 17.5,
+    options: [
+      {
+        title: "Small",
+        additionalPrice: 0,
+      },
+      {
+        title: "Medium",
+        additionalPrice: 3,
+      },
+      {
+        title: "Large",
+        additionalPrice: 5,
+      },
+    ],
+  },
+  {
+    id: 15,
+    title: "Seafood Marinara",
+    desc: "A rich and savory tomato-based pasta loaded with succulent shrimp, tender calamari, and mussels, perfectly seasoned with garlic and herbs.",
+    img: "/temporary/pa4.png",
+    price: 21.9,
+    options: [
+      {
+        title: "Small",
+        additionalPrice: 0,
+      },
+      {
+        title: "Medium",
+        additionalPrice: 4,
+      },
+      {
+        title: "Large",
+        additionalPrice: 6,
+      },
+    ],
+  },
+  {
+    id: 16,
+    title: "Truffle Mushroom Pasta",
+    desc: "A luxurious blend of creamy truffle sauce and sautéed mushrooms tossed with perfectly cooked linguine, finished with a sprinkle of fresh herbs and parmesan.",
+    img: "/temporary/pa5.png",
+    price: 23.5,
+    options: [
+      {
+        title: "Small",
+        additionalPrice: 0,
+      },
+      {
+        title: "Medium",
+        additionalPrice: 4,
+      },
+      {
+        title: "Large",
+        additionalPrice: 6,
+      },
+    ],
+  },
 ];
 
 export const pizzas: Products = [

@@ -1,5 +1,6 @@
 import { ProductType } from "@/types/types";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const getData = async () => {
@@ -17,6 +18,11 @@ const getData = async () => {
 
 const Featured = async () => {
   const featuredProducts: ProductType[] = await getData();
+  const router = useRouter();
+  
+  const handleClick = (id: string) => {
+    router.push(`/product/${id}`);
+  };
   return (
     <div className="w-screen overflow-x-scroll text-red-500">
       <div className="w-max flex">
@@ -24,6 +30,7 @@ const Featured = async () => {
           <div
             key={item.id}
             className="w-screen h-[60vh] flex flex-col items-center justify-around p-4 hover:bg-fuchsia-50 transition-all duration-300 md:w-[50vw] xl:w-[33vw] xl:h-[90vh]"
+            onClick={() => handleClick(item.id)}
           >
             {item.img && (
               <div className="relative flex-1 w-full hover:rotate-[360deg] transition-all duration-1000">
